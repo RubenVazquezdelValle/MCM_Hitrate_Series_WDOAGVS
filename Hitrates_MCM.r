@@ -29,7 +29,7 @@ substrLeft <- function(x, n){
 # Create input folder on working directory to download source files
 mydir<-getwd()
 inputdir<-paste(mydir,"/Input",sep="")
-dir.create(path=inputdir,mode="0777")
+# dir.create(path=inputdir,mode="0777")  Only executable the first time
 
 
 
