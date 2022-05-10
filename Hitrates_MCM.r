@@ -44,26 +44,21 @@ inputdir<-paste(mydir,"/Input",sep="")
 dw_files<-list.files(path=inputdir)
 
 
+for(i in (1:length(dw_files))){
 #upload n files and save them into Input_file_yyymmdd  tibbles
 
-for(i in (1:length(dw_files))){
   sufix<-paste(format(Starting_date+(i-1)*7,'%Y'),format(Starting_date+(i-1)*7,'%m'),format(Starting_date+(i-1)*7,'%d'),sep="")
   
   exp1 <- expression(paste("Input_file",sufix,sep="_"))                                              # Create name of the tibble expression
   exp2<- expression(read_delim(file=paste(inputdir,dw_files[i],sep="/"),delim=";",col_names=TRUE))   # Create read_delim expression
   z<-paste(eval(exp1),exp2,sep="<-")                                                                 # Create assignation expression as a string
   eval(parse(text=z))                                                                                # Evaluate expression
-}
 
 #Get week on each Input_file_yyyymmdd through cbind expression cbind(Input_file_sufix,week=sufix)
  
-for(i in (1:length(dw_files)))
-{
-  sufix<-paste(format(Starting_date+(i-1)*7,'%Y'),format(Starting_date+(i-1)*7,'%m'),format(Starting_date+(i-1)*7,'%d'),sep="")
-  exp1 <- expression(paste("Input_file",sufix,sep="_"))                                              # Get name of the tibble expression
-  exp2<- paste("cbind(",eval(exp1),",week=sufix)",sep="")                                            # Create cbind expression
-  z<-paste(eval(exp1),eval(exp2),sep="<-")                                                           # Create assignation expression as a string
-  eval(parse(text=z))                                                                                # Evaluate expression
+  exp3<- paste("cbind(",eval(exp1),",week=sufix)",sep="")                                            # Create cbind expression
+  y<-paste(eval(exp1),eval(exp3),sep="<-")                                                           # Create assignation expression as a string
+  eval(parse(text=y))                                                                                # Evaluate expression
 }
 
 
