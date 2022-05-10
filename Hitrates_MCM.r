@@ -71,17 +71,19 @@ for(i in (1:length(dw_files))){
 
 #Append the source file to hitrate dataset
   
-  
   x<-paste("Hitrate<-rbind(Hitrate,",eval(exp1),")",sep="")                                                                 # Create assignation expression as a string
   eval(parse(text=x))                                                                                # Evaluate expression
   
 }
 
 
-# Create Hitrate dataset
+#Plotting the hitrate by week, segment and IS_WDO
 
+Hitrate<-Hitrate%>% 
+  mutate(IS_WDO = 
+           factor(as.character(Hitrate$IS_WDO)))
 
-#Hitrate<-rbind(Hitrate,Input_file_20220328)
+Hitrate%>%ggplot(aes(week,HITRATE,group=IS_WDO,color=IS_WDO))+geom_point()+geom_line()+facet_grid(~ SEGMENT)
 
-##Results<-rbind(Results,tibble(method = "Movie Bias", RMSE = movbias_rmse, MAE = movbias_mae))
-##cbind(Input_file_20220321,week=sufix)
+#Hitrate%>%filter(SEGMENT==3 & week!="20220418")%>%ggplot(aes(week,HITRATE,group=IS_WDO))+geom_point()+geom_line()
+
