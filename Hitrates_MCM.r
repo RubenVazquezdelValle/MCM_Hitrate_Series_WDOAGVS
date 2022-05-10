@@ -44,10 +44,19 @@ inputdir<-paste(mydir,"/Input",sep="")
 dw_files<-list.files(path=inputdir)
 
 
-for(i in (1:length(dw_files))){
-#upload n files and save them into Input_file_yyymmdd  tibbles
+# Create Hitrate dataset
 
+Hitrate<- tibble()
+
+
+## Loop for uploading source files, adding each file its corresponding week and finnally append them into Hitrate dataset
+
+
+for(i in (1:length(dw_files))){
   sufix<-paste(format(Starting_date+(i-1)*7,'%Y'),format(Starting_date+(i-1)*7,'%m'),format(Starting_date+(i-1)*7,'%d'),sep="")
+
+  
+#upload n files and save them into Input_file_yyymmdd  tibbles
   
   exp1 <- expression(paste("Input_file",sufix,sep="_"))                                              # Create name of the tibble expression
   exp2<- expression(read_delim(file=paste(inputdir,dw_files[i],sep="/"),delim=";",col_names=TRUE))   # Create read_delim expression
@@ -59,8 +68,20 @@ for(i in (1:length(dw_files))){
   exp3<- paste("cbind(",eval(exp1),",week=sufix)",sep="")                                            # Create cbind expression
   y<-paste(eval(exp1),eval(exp3),sep="<-")                                                           # Create assignation expression as a string
   eval(parse(text=y))                                                                                # Evaluate expression
+
+#Append the source file to hitrate dataset
+  
+  
+  x<-paste("Hitrate<-rbind(Hitrate,",eval(exp1),")",sep="")                                                                 # Create assignation expression as a string
+  eval(parse(text=x))                                                                                # Evaluate expression
+  
 }
 
+
+# Create Hitrate dataset
+
+
+#Hitrate<-rbind(Hitrate,Input_file_20220328)
 
 ##Results<-rbind(Results,tibble(method = "Movie Bias", RMSE = movbias_rmse, MAE = movbias_mae))
 ##cbind(Input_file_20220321,week=sufix)
