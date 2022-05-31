@@ -87,3 +87,4 @@ Hitrate%>%ggplot(aes(week,HITRATE,group=IS_WDO,color=IS_WDO))+geom_point()+geom_
 
 #Hitrate%>%filter(SEGMENT==3 & week!="20220418")%>%ggplot(aes(week,HITRATE,group=IS_WDO))+geom_point()+geom_line()
 
+cor(Hitrate%>%filter(SEGMENT==2 & IS_WDO==1)%>%select(HITRATE),Hitrate%>%filter(SEGMENT==3 & IS_WDO==1)%>%select(HITRATE))
