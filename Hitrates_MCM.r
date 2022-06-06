@@ -83,7 +83,15 @@ Hitrate<-Hitrate%>%
   mutate(IS_WDO = 
            factor(as.character(Hitrate$IS_WDO)))
 
-Hitrate%>%ggplot(aes(week,HITRATE,group=IS_WDO,color=IS_WDO))+geom_point()+geom_line()+facet_grid(~ SEGMENT)
+Hitrate%>%ggplot(aes(week,HITRATE,group=IS_WDO,color=IS_WDO))+geom_point()+geom_line()+facet_grid(~ SEGMENT) +
+          theme(panel.background = element_rect(fill = "black"), panel.grid.major.y = element_line(color="light blue",size = 0.25,linetype = 1),
+                panel.grid.minor.y = element_line(color="light blue",size = 0.25,linetype = 1), panel.grid.major.x = element_line(color="black"),
+                legend.title = element_blank()) +
+          scale_color_manual(values = c( "#FFC125","#00BFFF"),labels = c("Manual", "WDO")) + 
+          labs(title='Efecto de usar WDOAGVS') + 
+          scale_x_discrete(breaks = c(1:9),labels = c("I","II", "III", "IV", "V", "VI", "VII","VIII","IX"))
+
+
 
 #Hitrate%>%filter(SEGMENT==3 & week!="20220418")%>%ggplot(aes(week,HITRATE,group=IS_WDO))+geom_point()+geom_line()
 
