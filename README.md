@@ -1,2 +1,12 @@
 # MCM_Hitrate_Series_WDOAGVS
-Historical series on MArchamalo hitrates by WDOAGVS work orders and by size of the workorder
+
+
+📜 Summary
+🔴 Mandatory
+
+MArchamalo hitrates Historical series while testing WDOAGVS
+
+
+🚀 Getting started
+
+
